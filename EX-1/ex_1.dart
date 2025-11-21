@@ -1,71 +1,71 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Custom buttons"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 100,
-            children:[ SizedBox(
-                  width: 400,
-                  height: 100,
-                  child: CustomerButton()
-                ),
-                SizedBox(
-                  width: 400,
-                  height: 100,
-                  child: CustomerButton()
-                ),
-                SizedBox(
-                  width: 400,
-                  height: 100,
-                  child: CustomerButton()
-                ),
-            ]
-          ),
+void main() => runApp(
+  MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: const Text("Custom buttons"),
+      ),
+      body: const Center(
+        child: Column(
+          children: [
+            SelectionButton(),
+            SizedBox(height: 8),
+            SelectionButton(),
+            SizedBox(height: 8),
+            SelectionButton(),
+            SizedBox(height: 8),
+            SelectionButton(),
+          ],
         )
       ),
-    ));
+    ),
+  )
+);
 
-class CustomerButton extends StatefulWidget {
-  const CustomerButton({super.key});
+class SelectionButton extends StatefulWidget {
+  const SelectionButton({
+    super.key,
+  });
 
   @override
-  State<CustomerButton> createState() => _CustomerButtonState();
+
+  State<SelectionButton> createState() => _SelectionButtonState();
 }
 
-class _CustomerButtonState extends State<CustomerButton> {
-  String status="Not Selected";
-  Color? bgColor=Colors.blue[50];
-  Color textColor=Colors.white;
+class _SelectionButtonState extends State<SelectionButton> {
 
-  void clickButton(){
-  setState(() {
-    if (status == "Not Selected") {
-      status = "Selected";
-      bgColor = Colors.blue[500];
-    } else {
-      status = "Not Selected";
-      bgColor = Colors.blue[50];
-    }
-  });
+  bool _selected = false;
+
+  String get buttonText => _selected ? "Selected" : "Not Selected";
+  Color get textColor => _selected ? Colors.white : Colors.black;
+  Color get backgroundColor => _selected ? Colors.blue.shade500 : Colors.blue.shade50;
+
+  void handleSelection() {
+    setState(() {
+      _selected = !_selected;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: clickButton,
-      style: ButtonStyle(
-        backgroundColor:WidgetStatePropertyAll(bgColor),
+    return SizedBox(
+      width: 400,
+      height: 100,
+      child: ElevatedButton(
+        onPressed: () => handleSelection(),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+        ),
+        child: Center(
+          child: Text(
+            buttonText,
+            style: TextStyle(
+              color: textColor
+            ),
+          ),
+        )
       ),
-      child: Center(
-        child: Text(status)
-    ));
+    );
+  }
 }
-}
-
-
