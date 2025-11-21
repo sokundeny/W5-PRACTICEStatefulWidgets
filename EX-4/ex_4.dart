@@ -104,8 +104,9 @@ class _ScoreCardState extends State<ScoreCard> {
                 color: Colors.grey,
                 width: 2
               ),
-              borderRadius:BorderRadius.circular(20)
+              borderRadius:BorderRadius.circular(10)
             ),
+            
             child: LayoutBuilder(
               builder: (context, constraints) {
                 double barWidth = (score / 10) * constraints.maxWidth;
@@ -116,7 +117,7 @@ class _ScoreCardState extends State<ScoreCard> {
                       width: barWidth,
                       decoration: BoxDecoration(
                         color: Colors.green,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(7),
                       ),
                     )
                   ],
